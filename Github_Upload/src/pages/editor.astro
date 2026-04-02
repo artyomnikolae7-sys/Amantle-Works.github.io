@@ -1,0 +1,501 @@
+---
+import Layout from '~/layouts/Layout.astro';
+import Header from '~/components/widgets/Header.astro';
+import Footer from '~/components/widgets/Footer.astro';
+import { headerData, footerData } from '~/navigation';
+
+const metadata = {
+  title: 'Редактор — Amantle',
+  description: 'Создайте новую запись на Amantle с блочным редактором.',
+};
+---
+
+<Layout metadata={metadata}>
+  <Header {...headerData} isSticky showToggleTheme />
+  <main class="editor-page" id="editor-page">
+    <!-- Auth gate -->
+    <div class="editor-locked" id="editor-locked">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#a8b3bb" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      <h2>Войдите для создания записей</h2>
+      <p>Необходимо войти в аккаунт</p>
+      <a href="/auth" class="editor-login-btn">Войти / Регистрация</a>
+    </div>
+
+    <!-- Editor -->
+    <div class="editor-wrap hidden" id="editor-wrap">
+      <!-- Top bar -->
+      <div class="editor-topbar">
+        <div class="topbar-left">
+          <img class="topbar-avatar" id="topbar-avatar" src="" alt="" />
+          <span class="topbar-name" id="topbar-name"></span>
+        </div>
+        <div class="topbar-right">
+          <select id="post-category" class="topbar-cat">
+            <option value="">Категория</option>
+            <option value="Технологии">Технологии</option>
+            <option value="Дизайн">Дизайн</option>
+            <option value="Путешествия">Путешествия</option>
+            <option value="Здоровье">Здоровье</option>
+            <option value="Культура">Культура</option>
+            <option value="Книги">Книги</option>
+            <option value="Еда">Еда</option>
+            <option value="Музыка">Музыка</option>
+            <option value="Советы">Советы</option>
+            <option value="Продуктивность">Продуктивность</option>
+            <option value="Другое">Другое</option>
+          </select>
+          <button class="topbar-publish" id="publish-btn">Опубликовать</button>
+        </div>
+      </div>
+
+      <!-- Canvas -->
+      <div class="editor-canvas">
+        <input class="editor-title" id="editor-title" type="text" placeholder="Заголовок" autocomplete="off" />
+        <div class="editor-cover-zone" id="cover-zone">
+          <div class="cover-placeholder" id="cover-placeholder">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+            <span>Добавить обложку</span>
+            <input type="file" id="cover-input" accept="image/*" class="cover-file-input" />
+            <input type="url" id="cover-url" placeholder="или вставить URL изображения" class="cover-url-input" />
+          </div>
+          <div class="cover-preview hidden" id="cover-preview">
+            <img id="cover-img" src="" alt="Обложка" />
+            <button class="cover-remove" id="cover-remove">&times;</button>
+          </div>
+        </div>
+
+        <!-- Blocks area -->
+        <div class="blocks-area" id="blocks-area">
+          <!-- Initial empty text block -->
+          <div class="block" data-type="text" data-id="b0">
+            <div class="block-content" contenteditable="true" data-placeholder="Начните писать или нажмите + для добавления блока..."></div>
+          </div>
+        </div>
+
+        <!-- Add block button (floating) -->
+        <div class="add-block-trigger" id="add-trigger">
+          <button class="add-btn" id="add-btn" title="Добавить блок">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+        </div>
+
+        <!-- Block menu -->
+        <div class="block-menu hidden" id="block-menu">
+          <button class="bm-item" data-type="text"><span class="bm-icon">≡</span><span class="bm-label">Текст</span></button>
+          <button class="bm-item" data-type="h2"><span class="bm-icon">H₂</span><span class="bm-label">Подзаголовок H2</span></button>
+          <button class="bm-item" data-type="h3"><span class="bm-icon">H₃</span><span class="bm-label">Подзаголовок H3</span></button>
+          <button class="bm-item" data-type="image"><span class="bm-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></span><span class="bm-label">Фото или видео</span></button>
+          <button class="bm-item" data-type="link"><span class="bm-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></span><span class="bm-label">Ссылка</span></button>
+          <button class="bm-item" data-type="quote"><span class="bm-icon">«»</span><span class="bm-label">Цитата</span></button>
+          <button class="bm-item" data-type="list"><span class="bm-icon">☰</span><span class="bm-label">Список</span></button>
+          <button class="bm-item" data-type="divider"><span class="bm-icon">—</span><span class="bm-label">Разделитель</span></button>
+        </div>
+
+        <!-- Inline toolbar -->
+        <div class="inline-toolbar hidden" id="inline-toolbar">
+          <button class="it-btn" data-cmd="bold" title="Жирный"><b>B</b></button>
+          <button class="it-btn" data-cmd="italic" title="Курсив"><i>I</i></button>
+          <button class="it-btn" data-cmd="underline" title="Подчёркнутый"><u>U</u></button>
+          <button class="it-btn" data-cmd="strikeThrough" title="Зачёркнутый"><s>S</s></button>
+          <span class="it-sep"></span>
+          <button class="it-btn" data-cmd="createLink" title="Ссылка"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast hidden" id="toast"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span id="toast-text">Сохранено!</span></div>
+  </main>
+  <Footer {...footerData} />
+</Layout>
+
+<style is:global>
+/* ===== Editor Page ===== */
+.editor-page { min-height:100vh; background:#f7f9fc; }
+.editor-locked { display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:60vh; text-align:center; padding:2rem; }
+.editor-locked h2 { font-size:1.5rem; font-weight:700; color:#29343a; margin:1.5rem 0 .5rem; }
+.editor-locked p { color:#566168; margin-bottom:2rem; }
+.editor-login-btn { padding:.875rem 2rem; background:linear-gradient(135deg,#515f74,#455367); color:#fff; text-decoration:none; border-radius:12px; font-weight:600; transition:all .3s; }
+.editor-login-btn:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(81,95,116,.25); }
+.hidden { display:none!important; }
+
+/* Top bar */
+.editor-topbar { max-width:760px; margin:0 auto; padding:1rem 1.5rem; display:flex; justify-content:space-between; align-items:center; }
+.topbar-left { display:flex; align-items:center; gap:.625rem; }
+.topbar-avatar { width:36px; height:36px; border-radius:50%; object-fit:cover; background:#e1e9f0; }
+.topbar-name { font-size:.875rem; font-weight:600; color:#29343a; }
+.topbar-right { display:flex; align-items:center; gap:.625rem; }
+.topbar-cat { padding:.5rem .75rem; border:1.5px solid #e1e9f0; border-radius:10px; font-size:.8125rem; color:#29343a; background:#fff; font-family:inherit; cursor:pointer; }
+.topbar-cat:focus { outline:none; border-color:#515f74; }
+.topbar-publish { padding:.5rem 1.25rem; background:linear-gradient(135deg,#515f74,#455367); color:#fff; border:none; border-radius:10px; font-size:.875rem; font-weight:600; cursor:pointer; transition:all .3s; font-family:inherit; }
+.topbar-publish:hover { transform:translateY(-1px); box-shadow:0 4px 12px rgba(81,95,116,.25); }
+
+/* Canvas */
+.editor-canvas { max-width:760px; margin:0 auto; padding:0 1.5rem 4rem; }
+.editor-title { width:100%; padding:1rem 0 .5rem; border:none; outline:none; font-size:2rem; font-weight:700; color:#29343a; font-family:inherit; letter-spacing:-.02em; background:none; box-sizing:border-box; }
+.editor-title::placeholder { color:#cedce5; }
+
+/* Cover */
+.cover-placeholder { display:flex; flex-wrap:wrap; align-items:center; gap:.75rem; padding:1rem; border:2px dashed #e1e9f0; border-radius:14px; color:#a8b3bb; font-size:.8125rem; cursor:pointer; margin-bottom:1.5rem; transition:border-color .2s; position:relative; }
+.cover-placeholder:hover { border-color:#515f74; color:#515f74; }
+.cover-file-input { position:absolute; inset:0; opacity:0; cursor:pointer; }
+.cover-url-input { flex:1; min-width:200px; border:none; background:none; outline:none; font-size:.8125rem; color:#29343a; font-family:inherit; }
+.cover-url-input::placeholder { color:#cedce5; }
+.cover-preview { position:relative; margin-bottom:1.5rem; border-radius:14px; overflow:hidden; }
+.cover-preview img { width:100%; max-height:360px; object-fit:cover; display:block; }
+.cover-remove { position:absolute; top:8px; right:8px; width:32px; height:32px; border-radius:50%; background:rgba(0,0,0,.5); color:#fff; border:none; font-size:1.25rem; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background .2s; }
+.cover-remove:hover { background:rgba(0,0,0,.7); }
+
+/* Blocks */
+.blocks-area { display:flex; flex-direction:column; gap:.125rem; }
+
+.block { position:relative; padding:2px 0; transition:background .15s; border-radius:4px; }
+.block:hover { background:rgba(81,95,116,.02); }
+
+.block-content { outline:none; min-height:1.5em; line-height:1.7; font-size:1rem; color:#29343a; padding:4px 2px; word-break:break-word; }
+.block-content:empty::before { content:attr(data-placeholder); color:#cedce5; pointer-events:none; }
+
+/* Block types */
+.block[data-type="h2"] .block-content { font-size:1.5rem; font-weight:700; line-height:1.3; letter-spacing:-.01em; }
+.block[data-type="h3"] .block-content { font-size:1.25rem; font-weight:600; line-height:1.35; }
+.block[data-type="quote"] { padding-left:1.25rem; border-left:3px solid #515f74; margin:8px 0; }
+.block[data-type="quote"] .block-content { font-style:italic; color:#566168; }
+.block[data-type="list"] .block-content { padding-left:1.25rem; }
+.block[data-type="list"] .block-content ul,
+.block[data-type="list"] .block-content ol { margin:0; padding-left:1rem; }
+.block[data-type="divider"] { pointer-events:none; padding:12px 0; }
+.block[data-type="divider"]::after { content:''; display:block; height:1px; background:#e1e9f0; }
+
+.block[data-type="image"] .image-wrapper { border-radius:12px; overflow:hidden; background:#f0f4f8; }
+.block[data-type="image"] .image-wrapper img { width:100%; display:block; }
+.block[data-type="image"] .image-upload { padding:2rem; text-align:center; border:2px dashed #e1e9f0; border-radius:12px; cursor:pointer; position:relative; color:#a8b3bb; font-size:.8125rem; transition:border-color .2s; }
+.block[data-type="image"] .image-upload:hover { border-color:#515f74; }
+.block[data-type="image"] .image-upload input[type="file"] { position:absolute; inset:0; opacity:0; cursor:pointer; }
+.block[data-type="image"] .image-url-row { display:flex; gap:.5rem; margin-top:.5rem; }
+.block[data-type="image"] .image-url-row input { flex:1; padding:.5rem .75rem; border:1.5px solid #e1e9f0; border-radius:8px; font-size:.8125rem; font-family:inherit; outline:none; }
+.block[data-type="image"] .image-url-row input:focus { border-color:#515f74; }
+.block[data-type="image"] .image-url-row button { padding:.5rem .75rem; background:#515f74; color:#fff; border:none; border-radius:8px; font-size:.8125rem; cursor:pointer; font-family:inherit; }
+.block[data-type="image"] .image-caption { font-size:.8125rem; color:#a8b3bb; text-align:center; padding:.5rem; outline:none; min-height:1em; }
+.block[data-type="image"] .image-caption:empty::before { content:'Подпись к изображению'; color:#cedce5; pointer-events:none; }
+
+.block[data-type="link"] .link-embed { padding:1rem 1.25rem; border:1.5px solid #e1e9f0; border-radius:12px; background:#fff; transition:border-color .2s; }
+.block[data-type="link"] .link-embed:hover { border-color:#515f74; }
+.block[data-type="link"] .link-input-row { display:flex; gap:.5rem; }
+.block[data-type="link"] .link-input-row input { flex:1; padding:.5rem .75rem; border:1.5px solid #e1e9f0; border-radius:8px; font-size:.875rem; font-family:inherit; outline:none; }
+.block[data-type="link"] .link-input-row input:focus { border-color:#515f74; }
+.block[data-type="link"] .link-input-row button { padding:.5rem .875rem; background:#515f74; color:#fff; border:none; border-radius:8px; font-size:.8125rem; cursor:pointer; font-family:inherit; }
+.block[data-type="link"] .link-card { display:flex; gap:1rem; text-decoration:none; color:inherit; }
+.block[data-type="link"] .link-card-info { flex:1; }
+.block[data-type="link"] .link-card-title { font-weight:600; font-size:.9375rem; color:#29343a; margin-bottom:.25rem; }
+.block[data-type="link"] .link-card-url { font-size:.75rem; color:#a8b3bb; word-break:break-all; }
+
+/* Block delete */
+.block-delete { position:absolute; top:4px; right:-28px; width:22px; height:22px; border-radius:6px; background:none; border:none; color:#cedce5; cursor:pointer; display:none; align-items:center; justify-content:center; transition:all .15s; font-size:.75rem; }
+.block:hover .block-delete { display:flex; }
+.block-delete:hover { background:#fef2f2; color:#9f403d; }
+
+/* Add block trigger */
+.add-block-trigger { padding:8px 0; }
+.add-btn { width:32px; height:32px; border-radius:50%; border:2px dashed #e1e9f0; background:none; cursor:pointer; display:flex; align-items:center; justify-content:center; color:#a8b3bb; transition:all .2s; }
+.add-btn:hover { border-color:#515f74; color:#515f74; border-style:solid; }
+
+/* Block menu */
+.block-menu { position:absolute; z-index:50; background:#fff; border:1px solid #e1e9f0; border-radius:12px; box-shadow:0 8px 32px rgba(41,52,58,.1); padding:6px; min-width:220px; animation:menuIn .15s ease; }
+@keyframes menuIn { from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:translateY(0)} }
+.bm-item { display:flex; align-items:center; gap:.75rem; width:100%; padding:8px 12px; border:none; background:none; border-radius:8px; cursor:pointer; font-size:.875rem; color:#29343a; font-family:inherit; transition:background .15s; text-align:left; }
+.bm-item:hover { background:#f0f4f8; }
+.bm-icon { width:28px; height:28px; display:flex; align-items:center; justify-content:center; background:#f7f9fc; border-radius:8px; font-size:.8125rem; font-weight:700; color:#515f74; flex-shrink:0; }
+.bm-label { color:#29343a; }
+
+/* Inline toolbar */
+.inline-toolbar { position:absolute; z-index:60; display:flex; align-items:center; gap:2px; background:#29343a; border-radius:8px; padding:4px 6px; box-shadow:0 4px 12px rgba(0,0,0,.2); animation:menuIn .12s ease; }
+.it-btn { width:30px; height:28px; display:flex; align-items:center; justify-content:center; border:none; background:none; border-radius:6px; cursor:pointer; color:#d9e4ec; font-size:.8125rem; transition:all .15s; font-family:inherit; }
+.it-btn:hover { background:rgba(255,255,255,.15); color:#fff; }
+.it-btn.active { background:rgba(255,255,255,.2); color:#fff; }
+.it-sep { width:1px; height:18px; background:rgba(255,255,255,.15); margin:0 2px; }
+
+/* Toast */
+.toast { position:fixed; bottom:2rem; left:50%; transform:translateX(-50%); background:#29343a; color:#fff; padding:.75rem 1.25rem; border-radius:10px; display:flex; align-items:center; gap:.5rem; font-size:.875rem; font-weight:600; box-shadow:0 8px 24px rgba(0,0,0,.2); z-index:100; animation:toastIn .3s ease; }
+@keyframes toastIn { from{opacity:0;transform:translateX(-50%) translateY(12px)} to{opacity:1;transform:translateX(-50%) translateY(0)} }
+
+@media(max-width:640px){
+  .editor-canvas{padding:0 1rem 3rem}
+  .editor-title{font-size:1.5rem}
+  .editor-topbar{padding:.75rem 1rem}
+  .block-delete{right:-4px;top:-20px}
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded',()=>{
+  const user=JSON.parse(localStorage.getItem('amantle_current_user')||'null');
+  const locked=document.getElementById('editor-locked')!;
+  const wrap=document.getElementById('editor-wrap')!;
+  if(!user){locked.classList.remove('hidden');wrap.classList.add('hidden');return;}
+  locked.classList.add('hidden');wrap.classList.remove('hidden');
+
+  // Topbar
+  (document.getElementById('topbar-avatar') as HTMLImageElement).src=user.avatar||`https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(user.name)}&backgroundColor=515f74&textColor=ffffff`;
+  document.getElementById('topbar-name')!.textContent=user.name;
+
+  const blocksArea=document.getElementById('blocks-area')!;
+  const menu=document.getElementById('block-menu')!;
+  const addBtn=document.getElementById('add-btn')!;
+  const inlineTB=document.getElementById('inline-toolbar')!;
+  let blockIdCounter=1;
+  let currentInsertAfter:HTMLElement|null=null;
+
+  // ---- Block creation ----
+  function createBlockHTML(type:string,id:string):string{
+    const del=`<button class="block-delete" data-del="${id}" title="Удалить блок">&times;</button>`;
+    switch(type){
+      case 'h2': return `<div class="block" data-type="h2" data-id="${id}"><div class="block-content" contenteditable="true" data-placeholder="Подзаголовок H2"></div>${del}</div>`;
+      case 'h3': return `<div class="block" data-type="h3" data-id="${id}"><div class="block-content" contenteditable="true" data-placeholder="Подзаголовок H3"></div>${del}</div>`;
+      case 'quote': return `<div class="block" data-type="quote" data-id="${id}"><div class="block-content" contenteditable="true" data-placeholder="Цитата..."></div>${del}</div>`;
+      case 'list': return `<div class="block" data-type="list" data-id="${id}"><div class="block-content" contenteditable="true" data-placeholder="• Элемент списка"></div>${del}</div>`;
+      case 'divider': return `<div class="block" data-type="divider" data-id="${id}">${del}</div>`;
+      case 'image': return `<div class="block" data-type="image" data-id="${id}"><div class="image-upload"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg><br>Нажмите для загрузки<input type="file" accept="image/*"></div><div class="image-url-row"><input type="url" placeholder="или URL изображения"><button>Вставить</button></div><div class="image-wrapper hidden"><img src="" alt=""><div class="image-caption" contenteditable="true"></div></div>${del}</div>`;
+      case 'link': return `<div class="block" data-type="link" data-id="${id}"><div class="link-embed"><div class="link-input-row"><input type="url" placeholder="Вставьте ссылку..."><button>Добавить</button></div><div class="link-card hidden"><div class="link-card-info"><div class="link-card-title"></div><div class="link-card-url"></div></div></div></div>${del}</div>`;
+      default: return `<div class="block" data-type="text" data-id="${id}"><div class="block-content" contenteditable="true" data-placeholder="Текст..."></div>${del}</div>`;
+    }
+  }
+
+  function insertBlock(type:string){
+    const id='b'+(blockIdCounter++);
+    const html=createBlockHTML(type,id);
+    if(currentInsertAfter){
+      currentInsertAfter.insertAdjacentHTML('afterend',html);
+    } else {
+      blocksArea.insertAdjacentHTML('beforeend',html);
+    }
+    menu.classList.add('hidden');
+    const newBlock=blocksArea.querySelector(`[data-id="${id}"]`);
+    const editable=newBlock?.querySelector('[contenteditable]') as HTMLElement;
+    if(editable){editable.focus();}
+    setupBlockHandlers(newBlock as HTMLElement);
+  }
+
+  // ---- Menu ----
+  addBtn.addEventListener('click',(e)=>{
+    e.stopPropagation();
+    const lastBlock=blocksArea.lastElementChild as HTMLElement;
+    currentInsertAfter=lastBlock;
+    const rect=addBtn.getBoundingClientRect();
+    menu.style.left=rect.left+'px';
+    menu.style.top=(rect.bottom+4)+'px';
+    menu.style.position='fixed';
+    menu.classList.toggle('hidden');
+  });
+
+  menu.querySelectorAll('.bm-item').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const type=(btn as HTMLElement).dataset.type!;
+      insertBlock(type);
+    });
+  });
+
+  document.addEventListener('click',(e)=>{
+    if(!menu.contains(e.target as Node)&&e.target!==addBtn){
+      menu.classList.add('hidden');
+    }
+    if(!inlineTB.contains(e.target as Node)){
+      setTimeout(()=>{
+        const sel=window.getSelection();
+        if(!sel||sel.isCollapsed) inlineTB.classList.add('hidden');
+      },100);
+    }
+  });
+
+  // ---- Per-block + shortcut on empty line ----
+  blocksArea.addEventListener('keydown',(e)=>{
+    const target=e.target as HTMLElement;
+    if(!target.matches||!target.matches('[contenteditable]'))return;
+    const block=target.closest('.block') as HTMLElement;
+    if(!block)return;
+
+    // Enter => new text block below
+    if(e.key==='Enter'&&!e.shiftKey&&block.dataset.type!=='list'){
+      e.preventDefault();
+      currentInsertAfter=block;
+      insertBlock('text');
+    }
+    // Backspace on empty block => delete
+    if(e.key==='Backspace'&&target.textContent?.trim()===''&&blocksArea.children.length>1){
+      e.preventDefault();
+      const prev=block.previousElementSibling as HTMLElement;
+      block.remove();
+      const ed=prev?.querySelector('[contenteditable]') as HTMLElement;
+      if(ed){ed.focus(); placeCaretAtEnd(ed);}
+    }
+    // "/" at start => show menu
+    if(e.key==='/'&&target.textContent?.trim()===''){
+      e.preventDefault();
+      currentInsertAfter=block;
+      const rect=target.getBoundingClientRect();
+      menu.style.left=rect.left+'px';
+      menu.style.top=(rect.bottom+4)+'px';
+      menu.style.position='fixed';
+      menu.classList.remove('hidden');
+    }
+  });
+
+  // ---- Delete block ----
+  blocksArea.addEventListener('click',(e)=>{
+    const del=(e.target as HTMLElement).closest('.block-delete') as HTMLElement;
+    if(del){
+      const block=del.closest('.block') as HTMLElement;
+      if(blocksArea.children.length>1) block.remove();
+    }
+    // Image file trigger
+    const imgUpload=(e.target as HTMLElement).closest('.image-upload');
+    if(imgUpload){/* file input handles it */}
+  });
+
+  // ---- Image + link blocks ----
+  function setupBlockHandlers(block:HTMLElement){
+    if(block.dataset.type==='image'){
+      const fileInput=block.querySelector('input[type="file"]') as HTMLInputElement;
+      const urlInput=block.querySelector('.image-url-row input') as HTMLInputElement;
+      const urlBtn=block.querySelector('.image-url-row button') as HTMLButtonElement;
+      const wrapper=block.querySelector('.image-wrapper') as HTMLElement;
+      const img=wrapper?.querySelector('img') as HTMLImageElement;
+      const upload=block.querySelector('.image-upload') as HTMLElement;
+      const urlRow=block.querySelector('.image-url-row') as HTMLElement;
+
+      function showImage(src:string){
+        if(img)img.src=src;
+        wrapper?.classList.remove('hidden');
+        upload?.classList.add('hidden');
+        urlRow?.classList.add('hidden');
+      }
+
+      fileInput?.addEventListener('change',()=>{
+        const file=fileInput.files?.[0];
+        if(file){const r=new FileReader();r.onload=(ev)=>showImage(ev.target?.result as string);r.readAsDataURL(file);}
+      });
+      urlBtn?.addEventListener('click',()=>{
+        if(urlInput?.value)showImage(urlInput.value);
+      });
+    }
+    if(block.dataset.type==='link'){
+      const input=block.querySelector('.link-input-row input') as HTMLInputElement;
+      const btn=block.querySelector('.link-input-row button') as HTMLButtonElement;
+      const card=block.querySelector('.link-card') as HTMLElement;
+      const title=block.querySelector('.link-card-title') as HTMLElement;
+      const url=block.querySelector('.link-card-url') as HTMLElement;
+      const inputRow=block.querySelector('.link-input-row') as HTMLElement;
+
+      btn?.addEventListener('click',()=>{
+        const val=input?.value||'';
+        if(!val)return;
+        try{const u=new URL(val);title.textContent=u.hostname;url.textContent=val;}catch{title.textContent=val;url.textContent=val;}
+        card?.classList.remove('hidden');
+        inputRow?.classList.add('hidden');
+      });
+    }
+  }
+
+  // Setup initial blocks
+  blocksArea.querySelectorAll('.block').forEach(b=>setupBlockHandlers(b as HTMLElement));
+
+  // ---- Inline toolbar on selection ----
+  document.addEventListener('selectionchange',()=>{
+    const sel=window.getSelection();
+    if(!sel||sel.isCollapsed||!sel.rangeCount){inlineTB.classList.add('hidden');return;}
+    const range=sel.getRangeAt(0);
+    const container=range.commonAncestorContainer as HTMLElement;
+    const block=(container.nodeType===3?container.parentElement:container)?.closest('.block');
+    if(!block||!blocksArea.contains(block)){inlineTB.classList.add('hidden');return;}
+    const rect=range.getBoundingClientRect();
+    inlineTB.style.position='fixed';
+    inlineTB.style.left=(rect.left+rect.width/2-inlineTB.offsetWidth/2)+'px';
+    inlineTB.style.top=(rect.top-40)+'px';
+    inlineTB.classList.remove('hidden');
+  });
+
+  inlineTB.querySelectorAll('.it-btn').forEach(btn=>{
+    btn.addEventListener('mousedown',(e)=>{
+      e.preventDefault();
+      const cmd=(btn as HTMLElement).dataset.cmd!;
+      if(cmd==='createLink'){const u=prompt('URL:');if(u)document.execCommand(cmd,false,u);}
+      else document.execCommand(cmd,false);
+      btn.classList.toggle('active');
+    });
+  });
+
+  // ---- Cover image ----
+  const coverInput=document.getElementById('cover-input') as HTMLInputElement;
+  const coverUrl=document.getElementById('cover-url') as HTMLInputElement;
+  const coverPreview=document.getElementById('cover-preview')!;
+  const coverPlaceholder=document.getElementById('cover-placeholder')!;
+  const coverImg=document.getElementById('cover-img') as HTMLImageElement;
+  const coverRemove=document.getElementById('cover-remove')!;
+
+  function showCover(src:string){coverImg.src=src;coverPreview.classList.remove('hidden');coverPlaceholder.classList.add('hidden');}
+  coverInput?.addEventListener('change',()=>{const f=coverInput.files?.[0];if(f){const r=new FileReader();r.onload=e=>showCover(e.target?.result as string);r.readAsDataURL(f);}});
+  coverUrl?.addEventListener('keydown',(e)=>{if(e.key==='Enter'){e.preventDefault();if(coverUrl.value)showCover(coverUrl.value);}});
+  coverRemove?.addEventListener('click',()=>{coverPreview.classList.add('hidden');coverPlaceholder.classList.remove('hidden');coverImg.src='';coverUrl.value='';});
+
+  // ---- Publish ----
+  document.getElementById('publish-btn')!.addEventListener('click',()=>{
+    const title=(document.getElementById('editor-title') as HTMLInputElement).value;
+    if(!title.trim()){alert('Введите заголовок');return;}
+
+    // Gather blocks
+    let html='';
+    blocksArea.querySelectorAll('.block').forEach(b=>{
+      const type=(b as HTMLElement).dataset.type;
+      const content=(b.querySelector('.block-content') as HTMLElement)?.innerHTML||'';
+      const imgSrc=(b.querySelector('.image-wrapper img') as HTMLImageElement)?.src||'';
+      const caption=(b.querySelector('.image-caption') as HTMLElement)?.textContent||'';
+      const linkUrl=(b.querySelector('.link-card-url') as HTMLElement)?.textContent||'';
+      const linkTitle=(b.querySelector('.link-card-title') as HTMLElement)?.textContent||'';
+
+      switch(type){
+        case'h2':html+=`<h2>${content}</h2>`;break;
+        case'h3':html+=`<h3>${content}</h3>`;break;
+        case'quote':html+=`<blockquote>${content}</blockquote>`;break;
+        case'list':html+=`<ul>${content}</ul>`;break;
+        case'divider':html+=`<hr>`;break;
+        case'image':if(imgSrc)html+=`<figure><img src="${imgSrc}" alt="${caption}"><figcaption>${caption}</figcaption></figure>`;break;
+        case'link':if(linkUrl)html+=`<a href="${linkUrl}" target="_blank">${linkTitle||linkUrl}</a>`;break;
+        default:if(content.trim())html+=`<p>${content}</p>`;
+      }
+    });
+
+    const category=(document.getElementById('post-category') as HTMLSelectElement).value;
+    const coverSrc=coverImg?.src||'';
+    const plainText=html.replace(/<[^>]*>/g,'');
+
+    const post={
+      id:Date.now().toString(),
+      title,
+      content:html,
+      category:category||'Заметка',
+      excerpt:plainText.substring(0,150),
+      image:coverSrc&&!coverSrc.endsWith('editor.astro')?coverSrc:'',
+      status:'published',
+      createdAt:new Date().toISOString(),
+      likes:0,comments:0,
+    };
+
+    const users=JSON.parse(localStorage.getItem('amantle_users')||'[]');
+    const idx=users.findIndex((u:any)=>u.id===user.id);
+    if(idx>=0){if(!users[idx].posts)users[idx].posts=[];users[idx].posts.unshift(post);localStorage.setItem('amantle_users',JSON.stringify(users));}
+
+    const toast=document.getElementById('toast')!;
+    document.getElementById('toast-text')!.textContent='Запись опубликована!';
+    toast.classList.remove('hidden');
+    setTimeout(()=>{toast.classList.add('hidden');window.location.href='/profile';},1800);
+  });
+
+  function placeCaretAtEnd(el:HTMLElement){
+    const range=document.createRange();
+    range.selectNodeContents(el);
+    range.collapse(false);
+    const sel=window.getSelection();
+    sel?.removeAllRanges();
+    sel?.addRange(range);
+  }
+});
+</script>

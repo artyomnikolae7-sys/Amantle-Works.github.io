@@ -1,0 +1,288 @@
+!-- httpsdeveloper.chrome.comblogmasonry-update --
+main
+  div class=card-animation-layer
+    article class=card
+    img src=httpsassets.codepen.io2585Roboto.svg alt=placeholder-hand-drawn-vector height=500 width=500
+    pSort of short and tiny amount of content here.p
+    a href=httpsblush.designcollectionsi6aPXTYbSUdZEveWhgiktranshumansCool arta
+  article
+  div
+  
+  div class=card-animation-layer
+    article class=card
+    img src=httpsassets.codepen.io2585Entertainment.svg alt=placeholder-hand-drawn-vector height=500 width=500
+    pThe words in this example are tolerable, passable and fair, but do draw out a bit.p
+    a href=httpsblush.designcollectionsi6aPXTYbSUdZEveWhgiktranshumansBy Pablo Stanleya
+  article
+  div
+  
+  div class=card-animation-layer
+    article class=card
+    img class=card-img src=httpsassets.codepen.io2585Mechanical+Love.svg alt=placeholder-hand-drawn-vector height=500 width=500
+    pI'm brief comparatively.p
+    a href=httpsblush.designcollectionsi6aPXTYbSUdZEveWhgiktranshumansFind morea
+  article
+  div
+  
+  div class=card-animation-layer
+    article class=card
+    img class=card-img src=httpsassets.codepen.io2585Waiting.svg alt=placeholder-hand-drawn-vector height=500 width=500
+    pSometimes the message is just right.p
+    a href=httpsblush.designcollectionsi6aPXTYbSUdZEveWhgiktranshumansShare good arta
+  article
+  div
+  
+  div class=card-animation-layer
+    article class=card
+    img class=card-img src=httpsassets.codepen.io2585Waiting.svg alt=placeholder-hand-drawn-vector height=500 width=500
+    pSometimes the message is just right.p
+    a href=httpsblush.designcollectionsi6aPXTYbSUdZEveWhgiktranshumansShare good arta
+  article
+  div
+  
+  div class=card-animation-layer
+    article class=card
+    img src=httpsassets.codepen.io2585Entertainment.svg alt=placeholder-hand-drawn-vector height=500 width=500
+    pThe words in this example are tolerable, passable and fair, but do draw out a bit.p
+    a href=httpsblush.designcollectionsi6aPXTYbSUdZEveWhgiktranshumansBy Pablo Stanleya
+  article
+  div
+  
+  div class=card-animation-layer
+    article class=card
+    img class=card-img src=httpsassets.codepen.io2585Mechanical+Love.svg alt=placeholder-hand-drawn-vector height=500 width=500
+    pI'm brief comparatively.p
+    a href=httpsblush.designcollectionsi6aPXTYbSUdZEveWhgiktranshumansFind morea
+  article
+  div
+  
+  div class=card-animation-layer
+    article class=card
+    img src=httpsassets.codepen.io2585Roboto.svg alt=placeholder-hand-drawn-vector height=500 width=500
+    pSort of short and tiny amount of content here.p
+    a href=httpsblush.designcollectionsi6aPXTYbSUdZEveWhgiktranshumansCool arta
+  article
+  div
+  
+  div class=card-animation-layer
+    article class=card
+    img class=card-img src=httpsassets.codepen.io2585Mechanical+Love.svg alt=placeholder-hand-drawn-vector height=500 width=500
+    pI'm brief comparatively.p
+    a href=httpsblush.designcollectionsi6aPXTYbSUdZEveWhgiktranshumansFind morea
+  article
+  div
+  
+  div class=card-animation-layer
+    article class=card
+    img src=httpsassets.codepen.io2585Entertainment.svg alt=placeholder-hand-drawn-vector height=500 width=500
+    pThe words in this example are tolerable, passable and fair, but do draw out a bit.p
+    a href=httpsblush.designcollectionsi6aPXTYbSUdZEveWhgiktranshumansBy Pablo Stanleya
+  article
+  div
+  
+  div class=card-animation-layer
+    article class=card
+    img src=httpsassets.codepen.io2585Roboto.svg alt=placeholder-hand-drawn-vector height=500 width=500
+    pSort of short and tiny amount of content here.p
+    a href=httpsblush.designcollectionsi6aPXTYbSUdZEveWhgiktranshumansCool arta
+  article
+  div
+  
+  div class=card-animation-layer
+    article class=card
+    img class=card-img src=httpsassets.codepen.io2585Waiting.svg alt=placeholder-hand-drawn-vector height=500 width=500
+    pSometimes the message is just right.p
+    a href=httpsblush.designcollectionsi6aPXTYbSUdZEveWhgiktranshumansShare good arta
+  article
+  div
+    div class=card-animation-layer
+      article class=card
+    img src=httpsassets.codepen.io2585Roboto.svg alt=placeholder-hand-drawn-vector height=500 width=500
+    pSort of short and tiny amount of content here.p
+    a href=httpsblush.designcollectionsi6aPXTYbSUdZEveWhgiktranshumansCool arta
+  article
+  div
+  
+  div class=card-animation-layer
+    article class=card
+    img src=httpsassets.codepen.io2585Entertainment.svg alt=placeholder-hand-drawn-vector height=500 width=500
+    pThe words in this example are tolerable, passable and fair, but do draw out a bit.p
+    a href=httpsblush.designcollectionsi6aPXTYbSUdZEveWhgiktranshumansBy Pablo Stanleya
+  article
+  div
+  
+  div class=card-animation-layer
+    article class=card
+    img class=card-img src=httpsassets.codepen.io2585Mechanical+Love.svg alt=placeholder-hand-drawn-vector height=500 width=500
+    pI'm brief comparatively.p
+    a href=httpsblush.designcollectionsi6aPXTYbSUdZEveWhgiktranshumansFind morea
+  article
+  div
+  
+  div class=card-animation-layer
+    article class=card
+    img class=card-img src=httpsassets.codepen.io2585Waiting.svg alt=placeholder-hand-drawn-vector height=500 width=500
+    pSometimes the message is just right.p
+    a href=httpsblush.designcollectionsi6aPXTYbSUdZEveWhgiktranshumansShare good arta
+  article
+  div
+  
+  div class=card-animation-layer
+    article class=card
+    img class=card-img src=httpsassets.codepen.io2585Waiting.svg alt=placeholder-hand-drawn-vector height=500 width=500
+    pSometimes the message is just right.p
+    a href=httpsblush.designcollectionsi6aPXTYbSUdZEveWhgiktranshumansShare good arta
+  article
+  div
+  
+  div class=card-animation-layer
+    article class=card
+    img src=httpsassets.codepen.io2585Entertainment.svg alt=placeholder-hand-drawn-vector height=500 width=500
+    pThe words in this example are tolerable, passable and fair, but do draw out a bit.p
+    a href=httpsblush.designcollectionsi6aPXTYbSUdZEveWhgiktranshumansBy Pablo Stanleya
+  article
+  div
+  
+  div class=card-animation-layer
+    article class=card
+    img class=card-img src=httpsassets.codepen.io2585Mechanical+Love.svg alt=placeholder-hand-drawn-vector height=500 width=500
+    pI'm brief comparatively.p
+    a href=httpsblush.designcollectionsi6aPXTYbSUdZEveWhgiktranshumansFind morea
+  article
+  div
+  
+  div class=card-animation-layer
+    article class=card
+    img src=httpsassets.codepen.io2585Roboto.svg alt=placeholder-hand-drawn-vector height=500 width=500
+    pSort of short and tiny amount of content here.p
+    a href=httpsblush.designcollectionsi6aPXTYbSUdZEveWhgiktranshumansCool arta
+  article
+  div
+  
+  div class=card-animation-layer
+    article class=card
+    img class=card-img src=httpsassets.codepen.io2585Mechanical+Love.svg alt=placeholder-hand-drawn-vector height=500 width=500
+    pI'm brief comparatively.p
+    a href=httpsblush.designcollectionsi6aPXTYbSUdZEveWhgiktranshumansFind morea
+  article
+  div
+  
+  div class=card-animation-layer
+    article class=card
+    img src=httpsassets.codepen.io2585Entertainment.svg alt=placeholder-hand-drawn-vector height=500 width=500
+    pThe words in this example are tolerable, passable and fair, but do draw out a bit.p
+    a href=httpsblush.designcollectionsi6aPXTYbSUdZEveWhgiktranshumansBy Pablo Stanleya
+  article
+  div
+  
+  div class=card-animation-layer
+    article class=card
+    img src=httpsassets.codepen.io2585Roboto.svg alt=placeholder-hand-drawn-vector height=500 width=500
+    pSort of short and tiny amount of content here.p
+    a href=httpsblush.designcollectionsi6aPXTYbSUdZEveWhgiktranshumansCool arta
+  article
+  div
+  
+  div class=card-animation-layer
+    article class=card
+    img class=card-img src=httpsassets.codepen.io2585Waiting.svg alt=placeholder-hand-drawn-vector height=500 width=500
+    pSometimes the message is just right.p
+    a href=httpsblush.designcollectionsi6aPXTYbSUdZEveWhgiktranshumansShare good arta
+  article
+  div
+    div class=card-animation-layer
+      article class=card
+    img src=httpsassets.codepen.io2585Roboto.svg alt=placeholder-hand-drawn-vector height=500 width=500
+    pSort of short and tiny amount of content here.p
+    a href=httpsblush.designcollectionsi6aPXTYbSUdZEveWhgiktranshumansCool arta
+  article
+  div
+  
+  div class=card-animation-layer
+    article class=card
+    img src=httpsassets.codepen.io2585Entertainment.svg alt=placeholder-hand-drawn-vector height=500 width=500
+    pThe words in this example are tolerable, passable and fair, but do draw out a bit.p
+    a href=httpsblush.designcollectionsi6aPXTYbSUdZEveWhgiktranshumansBy Pablo Stanleya
+  article
+  div
+  
+  div class=card-animation-layer
+    article class=card
+    img class=card-img src=httpsassets.codepen.io2585Mechanical+Love.svg alt=placeholder-hand-drawn-vector height=500 width=500
+    pI'm brief comparatively.p
+    a href=httpsblush.designcollectionsi6aPXTYbSUdZEveWhgiktranshumansFind morea
+  article
+  div
+  
+  div class=card-animation-layer
+    article class=card
+    img class=card-img src=httpsassets.codepen.io2585Waiting.svg alt=placeholder-hand-drawn-vector height=500 width=500
+    pSometimes the message is just right.p
+    a href=httpsblush.designcollectionsi6aPXTYbSUdZEveWhgiktranshumansShare good arta
+  article
+  div
+  
+  div class=card-animation-layer
+    article class=card
+    img class=card-img src=httpsassets.codepen.io2585Waiting.svg alt=placeholder-hand-drawn-vector height=500 width=500
+    pSometimes the message is just right.p
+    a href=httpsblush.designcollectionsi6aPXTYbSUdZEveWhgiktranshumansShare good arta
+  article
+  div
+  
+  div class=card-animation-layer
+    article class=card
+    img src=httpsassets.codepen.io2585Entertainment.svg alt=placeholder-hand-drawn-vector height=500 width=500
+    pThe words in this example are tolerable, passable and fair, but do draw out a bit.p
+    a href=httpsblush.designcollectionsi6aPXTYbSUdZEveWhgiktranshumansBy Pablo Stanleya
+  article
+  div
+  
+  div class=card-animation-layer
+    article class=card
+    img class=card-img src=httpsassets.codepen.io2585Mechanical+Love.svg alt=placeholder-hand-drawn-vector height=500 width=500
+    pI'm brief comparativelyp
+    a href=httpsblush.designcollectionsi6aPXTYbSUdZEveWhgiktranshumansFind morea
+  article
+  div
+  
+  div class=card-animation-layer
+    article class=card
+    img src=httpsassets.codepen.io2585Roboto.svg alt=placeholder-hand-drawn-vector height=500 width=500
+    pSort of short and tiny amount of content here.p
+    a href=httpsblush.designcollectionsi6aPXTYbSUdZEveWhgiktranshumansCool arta
+  article
+  div
+  
+  div class=card-animation-layer
+    article class=card
+    img class=card-img src=httpsassets.codepen.io2585Mechanical+Love.svg alt=placeholder-hand-drawn-vector height=500 width=500
+    pI'm brief comparatively.p
+    a href=httpsblush.designcollectionsi6aPXTYbSUdZEveWhgiktranshumansFind morea
+  article
+  div
+  
+  div class=card-animation-layer
+    article class=card
+    img src=httpsassets.codepen.io2585Entertainment.svg alt=placeholder-hand-drawn-vector height=500 width=500
+    pThe words in this example are tolerable, passable and fair, but do draw out a bit.p
+    a href=httpsblush.designcollectionsi6aPXTYbSUdZEveWhgiktranshumansBy Pablo Stanleya
+  article
+  div
+  
+  div class=card-animation-layer
+    article class=card
+    img src=httpsassets.codepen.io2585Roboto.svg alt=placeholder-hand-drawn-vector height=500 width=500
+    pSort of short and tiny amount of content here.p
+    a href=httpsblush.designcollectionsi6aPXTYbSUdZEveWhgiktranshumansCool arta
+  article
+  div
+  
+  div class=card-animation-layer
+    article class=card
+    img class=card-img src=httpsassets.codepen.io2585Waiting.svg alt=placeholder-hand-drawn-vector height=500 width=500
+    pSometimes the message is just right.p
+    a href=httpsblush.designcollectionsi6aPXTYbSUdZEveWhgiktranshumansShare good arta
+  article
+  div
+main

@@ -1,0 +1,228 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+
+import Hero from '~/components/widgets/Hero.astro';
+import Features from '~/components/widgets/Features.astro';
+import Features2 from '~/components/widgets/Features2.astro';
+import Steps from '~/components/widgets/Steps.astro';
+import Content from '~/components/widgets/Content.astro';
+import BlogLatestPosts from '~/components/widgets/BlogLatestPosts.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+import Stats from '~/components/widgets/Stats.astro';
+
+const metadata = {
+  title: 'Amantle — Ваше пространство для идей и заметок',
+  ignoreTitleTemplate: true,
+};
+---
+
+<Layout metadata={metadata}>
+  <!-- Hero Widget -->
+  <Hero
+    actions={[
+      {
+        variant: 'primary',
+        text: 'Начать',
+        href: '/auth',
+        icon: 'tabler:rocket',
+      },
+      { text: 'Лента постов', href: '/feed' },
+    ]}
+    image={{ src: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80', alt: 'Amantle Platform' }}
+  >
+    <Fragment slot="title">
+      Ваше пространство для <span class="text-accent dark:text-white">идей</span> и вдохновения
+    </Fragment>
+
+    <Fragment slot="subtitle">
+      <span class="hidden sm:inline">
+        <span class="font-semibold">Amantle</span> — платформа для создания, сохранения и обмена записями.
+      </span>
+      <span class="block mb-1 sm:hidden font-bold text-blue-600">Amantle: Создавайте. Делитесь.</span>
+      Создавайте посты, делитесь с сообществом и находите вдохновение в записях других авторов.
+    </Fragment>
+  </Hero>
+
+  <!-- Features Widget -->
+  <Features
+    id="features"
+    tagline="Возможности"
+    title="Что предлагает Amantle"
+    subtitle="Всё необходимое для создания, организации и обмена вашими заметками и идеями."
+    items={[
+      {
+        title: 'Личный кабинет',
+        description: 'Персональное пространство для ваших записей, черновиков и опубликованных постов. Всё в одном месте.',
+        icon: 'tabler:user-circle',
+      },
+      {
+        title: 'Редактор записей',
+        description: 'Удобный редактор с форматированием текста, добавлением изображений и категоризацией постов.',
+        icon: 'tabler:edit',
+      },
+      {
+        title: 'Лента сообщества',
+        description: 'Все посты пользователей в красивой сетке с эффектом Scroll to Bloom. Ищите, вдохновляйтесь.',
+        icon: 'tabler:layout-grid',
+      },
+      {
+        title: 'Категории и поиск',
+        description: 'Организуйте записи по категориям. Быстрый поиск помогает найти нужный контент за секунды.',
+        icon: 'tabler:search',
+      },
+      {
+        title: 'Реакции и комментарии',
+        description: 'Лайки и комментарии для взаимодействия с другими авторами и их записями.',
+        icon: 'tabler:heart',
+      },
+      {
+        title: 'Адаптивный дизайн',
+        description: 'Современный минималистичный дизайн, который отлично работает на всех устройствах.',
+        icon: 'tabler:device-mobile',
+      },
+    ]}
+  />
+
+  <!-- Content Widget -->
+  <Content
+    isReversed
+    tagline="О платформе"
+    title="Создано для авторов"
+    items={[
+      {
+        title: 'Простая регистрация',
+        description: 'Создайте аккаунт за считанные секунды по электронной почте и начните публиковать.',
+      },
+      {
+        title: 'Безопасное хранение',
+        description: 'Все ваши записи сохраняются в вашем аккаунте и доступны в любое время.',
+      },
+      {
+        title: 'Красивая подача',
+        description: 'Каждый пост отображается в стильной карточке с изображением и описанием.',
+      },
+    ]}
+    image={{
+      src: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
+      alt: 'Amantle Platform',
+    }}
+  >
+    <Fragment slot="content">
+      <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">Пишите. Делитесь. Вдохновляйтесь.</h3>
+      Amantle предоставляет все инструменты для продуктивной работы с контентом
+    </Fragment>
+
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
+    </Fragment>
+  </Content>
+
+  <!-- Steps Widget -->
+  <Steps
+    title="Начните за 3 простых шага"
+    items={[
+      {
+        title: 'Шаг 1: <span class="font-medium">Регистрация</span>',
+        description: 'Создайте аккаунт по электронной почте. Это бесплатно и занимает менее минуты.',
+        icon: 'tabler:user-plus',
+      },
+      {
+        title: 'Шаг 2: <span class="font-medium">Создайте запись</span>',
+        description: 'Откройте редактор, напишите текст, добавьте изображения и выберите категорию.',
+        icon: 'tabler:pencil',
+      },
+      {
+        title: 'Шаг 3: <span class="font-medium">Публикация</span>',
+        description: 'Опубликуйте пост и он появится в общей ленте для всех пользователей.',
+        icon: 'tabler:send',
+      },
+      {
+        title: 'Готово!',
+        icon: 'tabler:check',
+      },
+    ]}
+    image={{
+      src: 'https://images.unsplash.com/photo-1616198814651-e71f960c3180?ixlib=rb-4.0.3&auto=format&fit=crop&w=987&q=80',
+      alt: 'Steps',
+    }}
+  />
+
+  <!-- Features2 Widget -->
+  <Features2
+    title="Разделы платформы"
+    subtitle="Всё что нужно для работы с контентом"
+    tagline="Навигация"
+    items={[
+      {
+        title: 'Главная',
+        description: 'Обзор платформы и быстрый доступ ко всем разделам.',
+        icon: 'flat-color-icons:template',
+      },
+      {
+        title: 'Лента',
+        description: 'Все посты сообщества в красивой сетке с анимацией Scroll to Bloom.',
+        icon: 'flat-color-icons:gallery',
+      },
+      {
+        title: 'Редактор',
+        description: 'Создание новых записей с форматированием, категориями и изображениями.',
+        icon: 'flat-color-icons:document',
+      },
+      {
+        title: 'Профиль',
+        description: 'Личный кабинет со статистикой и управлением записями.',
+        icon: 'flat-color-icons:business-contact',
+      },
+      {
+        title: 'Блог',
+        description: 'Статьи и материалы от команды Amantle.',
+        icon: 'flat-color-icons:advertising',
+      },
+      {
+        title: 'Контакты',
+        description: 'Свяжитесь с нами для предложений и отзывов.',
+        icon: 'flat-color-icons:voice-presentation',
+      },
+    ]}
+  >
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
+    </Fragment>
+  </Features2>
+
+  <!-- Blog Widget -->
+  <BlogLatestPosts
+    title="Последние публикации"
+    information="Самые свежие статьи и записи из блога Amantle."
+  />
+
+  <!-- Stats Widget -->
+  <Stats
+    stats={[
+      { title: 'Пользователей', amount: '1.2K' },
+      { title: 'Записей', amount: '8.5K' },
+      { title: 'Категорий', amount: '24' },
+      { title: 'Лайков', amount: '42K' },
+    ]}
+  />
+
+  <!-- CTA Widget -->
+  <CallToAction
+    actions={[
+      {
+        variant: 'primary',
+        text: 'Создать аккаунт',
+        href: '/auth',
+        icon: 'tabler:user-plus',
+      },
+    ]}
+  >
+    <Fragment slot="title">
+      Начните писать&nbsp;с&nbsp;<br class="block sm:hidden" /><span class="sm:whitespace-nowrap">Amantle</span>
+    </Fragment>
+
+    <Fragment slot="subtitle">
+      Присоединяйтесь к сообществу авторов. Создавайте записи, делитесь идеями и находите вдохновение.
+    </Fragment>
+  </CallToAction>
+</Layout>

@@ -1,0 +1,707 @@
+---
+import Layout from '~/layouts/Layout.astro';
+import Header from '~/components/widgets/Header.astro';
+import Footer from '~/components/widgets/Footer.astro';
+import { headerData, footerData } from '~/navigation';
+
+const metadata = {
+  title: 'Лента — Amantle',
+  description: 'Все посты и записи сообщества Amantle в одной ленте. Scroll to bloom.',
+};
+---
+
+<Layout metadata={metadata}>
+  <Header {...headerData} isSticky showToggleTheme />
+  <main class="feed-page">
+    <div class="feed-header">
+      <div class="feed-header-content">
+        <h1>Лента</h1>
+        <p>Все посты сообщества</p>
+      </div>
+      <div class="feed-actions">
+        <div class="feed-search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <input type="text" id="feed-search-input" placeholder="Поиск по постам..." />
+        </div>
+        <button class="new-post-btn" id="new-post-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          <span>Новый пост</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Scroll to bloom grid -->
+    <div class="bloom-grid" id="bloom-grid">
+      <!-- Posts will be inserted dynamically -->
+    </div>
+
+    <!-- Empty state -->
+    <div class="empty-state hidden" id="empty-state">
+      <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.3">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+        <polyline points="14 2 14 8 20 8"></polyline>
+        <line x1="16" y1="13" x2="8" y2="13"></line>
+        <line x1="16" y1="17" x2="8" y2="17"></line>
+        <polyline points="10 9 9 9 8 9"></polyline>
+      </svg>
+      <h3>Пока нет постов</h3>
+      <p>Создайте первый пост, чтобы он появился в ленте</p>
+    </div>
+  </main>
+  <Footer {...footerData} />
+</Layout>
+
+<style is:global>
+  .feed-page {
+    min-height: 100vh;
+    background: #f7f9fc;
+    padding-bottom: 4rem;
+  }
+
+  .feed-header {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2.5rem 2rem 1.5rem;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .feed-header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #29343a;
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
+
+  .feed-header p {
+    color: #566168;
+    font-size: 0.875rem;
+    margin: 0.25rem 0 0;
+  }
+
+  .feed-actions {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+  }
+
+  .feed-search {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1rem;
+    background: white;
+    border: 1.5px solid #e1e9f0;
+    border-radius: 12px;
+    transition: all 0.25s;
+    min-width: 240px;
+  }
+
+  .feed-search:focus-within {
+    border-color: #515f74;
+    box-shadow: 0 0 0 3px rgba(81, 95, 116, 0.1);
+  }
+
+  .feed-search svg {
+    color: #a8b3bb;
+    flex-shrink: 0;
+  }
+
+  .feed-search input {
+    border: none;
+    background: none;
+    outline: none;
+    font-size: 0.875rem;
+    color: #29343a;
+    font-family: inherit;
+    width: 100%;
+  }
+
+  .feed-search input::placeholder {
+    color: #a8b3bb;
+  }
+
+  .new-post-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1.25rem;
+    background: linear-gradient(135deg, #515f74, #455367);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: inherit;
+    white-space: nowrap;
+  }
+
+  .new-post-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(81, 95, 116, 0.25);
+  }
+
+  /* Scroll to Bloom Grid */
+  .bloom-grid {
+    --cols: 2;
+    display: grid;
+    grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+    gap: 1.25rem;
+    padding: 1rem 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    place-items: start;
+  }
+
+  @media (min-width: 720px) {
+    .bloom-grid { --cols: 3; }
+  }
+
+  @media (min-width: 1024px) {
+    .bloom-grid { --cols: 4; }
+  }
+
+  @media (min-width: 1440px) {
+    .bloom-grid { --cols: 5; }
+  }
+
+  /* Bloom animation */
+  @keyframes bloom-in {
+    from {
+      scale: 0.85;
+      opacity: 0;
+      rotate: calc(var(--bloom-side, 1) * (4deg * var(--bloom-amp, 1)));
+    }
+    to {
+      scale: 1;
+      opacity: 1;
+      rotate: 0deg;
+    }
+  }
+
+  .bloom-card-wrapper {
+    display: grid;
+    animation: bloom-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      .bloom-card-wrapper {
+        animation: bloom-in linear both;
+        animation-timeline: view();
+        animation-range: cover 0% contain 20%;
+      }
+    }
+  }
+
+  /* Bloom rotation origins per column position */
+  .bloom-card-wrapper:nth-child(2n+1) {
+    transform-origin: 25vw 100%;
+    --bloom-side: -1;
+  }
+  .bloom-card-wrapper:nth-child(2n) {
+    transform-origin: -25vw 100%;
+    --bloom-side: 1;
+  }
+
+  @media (min-width: 720px) {
+    .bloom-card-wrapper:nth-child(3n+1) {
+      transform-origin: 40vw 100%;
+      --bloom-side: -1;
+      --bloom-amp: 1.5;
+    }
+    .bloom-card-wrapper:nth-child(3n+2) {
+      transform-origin: 0vw 100%;
+      --bloom-side: -1;
+    }
+    .bloom-card-wrapper:nth-child(3n) {
+      transform-origin: -40vw 100%;
+      --bloom-side: 1;
+      --bloom-amp: 1.5;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .bloom-card-wrapper:nth-child(4n+1) {
+      transform-origin: 50vw 100%;
+      --bloom-side: -1;
+      --bloom-amp: 2;
+    }
+    .bloom-card-wrapper:nth-child(4n+2) {
+      transform-origin: 25vw 100%;
+      --bloom-side: -1;
+    }
+    .bloom-card-wrapper:nth-child(4n+3) {
+      transform-origin: -25vw 100%;
+      --bloom-side: 1;
+    }
+    .bloom-card-wrapper:nth-child(4n) {
+      transform-origin: -50vw 100%;
+      --bloom-side: 1;
+      --bloom-amp: 2;
+    }
+  }
+
+  /* Post Card */
+  .post-card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(41, 52, 58, 0.06);
+    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    cursor: pointer;
+    position: relative;
+  }
+
+  .post-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(41, 52, 58, 0.12);
+  }
+
+  .post-card-image {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    display: block;
+    background: linear-gradient(135deg, #e1e9f0, #d9e4ec);
+  }
+
+  .post-card-body {
+    padding: 1rem 1.25rem 1.25rem;
+  }
+
+  .post-card-category {
+    display: inline-block;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #515f74;
+    background: #f0f4f8;
+    padding: 4px 10px;
+    border-radius: 6px;
+    margin-bottom: 0.625rem;
+  }
+
+  .post-card-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #29343a;
+    line-height: 1.35;
+    margin-bottom: 0.5rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .post-card-excerpt {
+    font-size: 0.8125rem;
+    color: #566168;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 1rem;
+  }
+
+  .post-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 0.75rem;
+    border-top: 1px solid #f0f4f8;
+  }
+
+  .post-card-author {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .author-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #e1e9f0;
+  }
+
+  .author-name {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #29343a;
+  }
+
+  .post-card-date {
+    font-size: 0.6875rem;
+    color: #a8b3bb;
+  }
+
+  .post-card-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .post-action-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    background: none;
+    border: none;
+    color: #a8b3bb;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: color 0.2s;
+    padding: 0;
+    font-family: inherit;
+  }
+
+  .post-action-btn:hover {
+    color: #515f74;
+  }
+
+  .post-action-btn svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  /* Empty state */
+  .empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .empty-state.hidden {
+    display: none;
+  }
+
+  .empty-state h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #29343a;
+    margin: 1.5rem 0 0.5rem;
+  }
+
+  .empty-state p {
+    color: #566168;
+    font-size: 0.875rem;
+  }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    .feed-header {
+      padding: 1.5rem 1rem 1rem;
+    }
+
+    .bloom-grid {
+      padding: 1rem;
+      --cols: 1 !important;
+    }
+
+    .feed-actions {
+      width: 100%;
+      flex-direction: column;
+    }
+
+    .feed-search {
+      width: 100%;
+      min-width: unset;
+    }
+
+    .new-post-btn {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const grid = document.getElementById('bloom-grid');
+    const emptyState = document.getElementById('empty-state');
+    const searchInput = document.getElementById('feed-search-input') as HTMLInputElement;
+    const newPostBtn = document.getElementById('new-post-btn');
+
+    // Sample posts data merged with user posts
+    const samplePosts = [
+      {
+        id: 'sample-1',
+        title: 'Как начать вести цифровой дневник',
+        excerpt: 'Советы по организации ваших мыслей и идей в цифровом формате. Начните с простого и двигайтесь к сложному.',
+        category: 'Советы',
+        image: 'https://images.unsplash.com/photo-1517842645767-c639042777db?w=400&h=300&fit=crop',
+        author: 'Анна К.',
+        avatar: 'https://api.dicebear.com/7.x/initials/svg?seed=AK&backgroundColor=515f74&textColor=ffffff',
+        date: '2 апр 2026',
+        likes: 24,
+        comments: 8,
+      },
+      {
+        id: 'sample-2',
+        title: 'Лучшие практики дизайна интерфейсов 2026',
+        excerpt: 'Обзор главных трендов UI/UX дизайна в этом году: нейроморфизм, жидкие формы и адаптивная типографика.',
+        category: 'Дизайн',
+        image: 'https://images.unsplash.com/photo-1545235617-9465d2a55698?w=400&h=300&fit=crop',
+        author: 'Максим Р.',
+        avatar: 'https://api.dicebear.com/7.x/initials/svg?seed=MR&backgroundColor=455367&textColor=ffffff',
+        date: '1 апр 2026',
+        likes: 42,
+        comments: 15,
+      },
+      {
+        id: 'sample-3',
+        title: 'Путешествие в горы Алтая',
+        excerpt: 'Фоторепортаж из путешествия по самым красивым местам Алтайского края. Невероятные пейзажи и дикая природа.',
+        category: 'Путешествия',
+        image: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=400&h=300&fit=crop',
+        author: 'Дмитрий С.',
+        avatar: 'https://api.dicebear.com/7.x/initials/svg?seed=DS&backgroundColor=3a4858&textColor=ffffff',
+        date: '31 мар 2026',
+        likes: 67,
+        comments: 22,
+      },
+      {
+        id: 'sample-4',
+        title: 'Рецепт домашней пасты',
+        excerpt: 'Простой и вкусный рецепт итальянской пасты, который можно приготовить за 30 минут дома.',
+        category: 'Еда',
+        image: 'https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=400&h=300&fit=crop',
+        author: 'Елена В.',
+        avatar: 'https://api.dicebear.com/7.x/initials/svg?seed=EV&backgroundColor=5b5d78&textColor=ffffff',
+        date: '30 мар 2026',
+        likes: 35,
+        comments: 12,
+      },
+      {
+        id: 'sample-5',
+        title: 'Основы TypeScript для начинающих',
+        excerpt: 'Введение в типизированный JavaScript: зачем он нужен, как начать и какие преимущества даёт разработчику.',
+        category: 'Технологии',
+        image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=400&h=300&fit=crop',
+        author: 'Игорь Н.',
+        avatar: 'https://api.dicebear.com/7.x/initials/svg?seed=IN&backgroundColor=515f74&textColor=ffffff',
+        date: '29 мар 2026',
+        likes: 53,
+        comments: 19,
+      },
+      {
+        id: 'sample-6',
+        title: 'Медитация и продуктивность',
+        excerpt: 'Как простые техники медитации помогают повысить концентрацию и работоспособность в повседневной жизни.',
+        category: 'Здоровье',
+        image: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=400&h=300&fit=crop',
+        author: 'Мария Л.',
+        avatar: 'https://api.dicebear.com/7.x/initials/svg?seed=ML&backgroundColor=455367&textColor=ffffff',
+        date: '28 мар 2026',
+        likes: 89,
+        comments: 31,
+      },
+      {
+        id: 'sample-7',
+        title: 'Архитектура Санкт-Петербурга',
+        excerpt: 'Прогулка по самым красивым дворам и фасадам северной столицы. Истории, стоящие за каждым зданием.',
+        category: 'Культура',
+        image: 'https://images.unsplash.com/photo-1556610961-2fecc5927173?w=400&h=300&fit=crop',
+        author: 'Олег П.',
+        avatar: 'https://api.dicebear.com/7.x/initials/svg?seed=OP&backgroundColor=3a4858&textColor=ffffff',
+        date: '27 мар 2026',
+        likes: 46,
+        comments: 14,
+      },
+      {
+        id: 'sample-8',
+        title: 'Книги которые изменили мое мышление',
+        excerpt: 'Подборка из 10 книг, которые оказали наибольшее влияние на мой подход к жизни и работе.',
+        category: 'Книги',
+        image: 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=300&fit=crop',
+        author: 'Наталья Ж.',
+        avatar: 'https://api.dicebear.com/7.x/initials/svg?seed=NZ&backgroundColor=5b5d78&textColor=ffffff',
+        date: '26 мар 2026',
+        likes: 72,
+        comments: 28,
+      },
+      {
+        id: 'sample-9',
+        title: 'Создание музыки на iPad',
+        excerpt: 'Обзор лучших приложений для создания музыки на планшете. От простых битов до полноценных треков.',
+        category: 'Музыка',
+        image: 'https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=400&h=300&fit=crop',
+        author: 'Артем Б.',
+        avatar: 'https://api.dicebear.com/7.x/initials/svg?seed=AB&backgroundColor=515f74&textColor=ffffff',
+        date: '25 мар 2026',
+        likes: 38,
+        comments: 11,
+      },
+      {
+        id: 'sample-10',
+        title: 'Утренние привычки успешных людей',
+        excerpt: 'Исследование утренних ритуалов CEO крупнейших компаний мира и как адаптировать их под свою жизнь.',
+        category: 'Продуктивность',
+        image: 'https://images.unsplash.com/photo-1484627147104-f5197bcd6651?w=400&h=300&fit=crop',
+        author: 'Светлана Г.',
+        avatar: 'https://api.dicebear.com/7.x/initials/svg?seed=SG&backgroundColor=455367&textColor=ffffff',
+        date: '24 мар 2026',
+        likes: 95,
+        comments: 34,
+      },
+      {
+        id: 'sample-11',
+        title: 'Фотография на плёнку',
+        excerpt: 'Почему плёночная фотография переживает новый расцвет и как начать снимать на аналоговую камеру.',
+        category: 'Фотография',
+        image: 'https://images.unsplash.com/photo-1495745966610-2a67f2297e5e?w=400&h=300&fit=crop',
+        author: 'Павел К.',
+        avatar: 'https://api.dicebear.com/7.x/initials/svg?seed=PK&backgroundColor=3a4858&textColor=ffffff',
+        date: '23 мар 2026',
+        likes: 61,
+        comments: 20,
+      },
+      {
+        id: 'sample-12',
+        title: 'Комнатные растения для начинающих',
+        excerpt: 'Неприхотливые растения, которые переживут даже самого забывчивого хозяина и украсят любое пространство.',
+        category: 'Дом',
+        image: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&h=300&fit=crop',
+        author: 'Ирина М.',
+        avatar: 'https://api.dicebear.com/7.x/initials/svg?seed=IM&backgroundColor=5b5d78&textColor=ffffff',
+        date: '22 мар 2026',
+        likes: 84,
+        comments: 26,
+      },
+    ];
+
+    // Get user posts from localStorage
+    function getUserPosts() {
+      const users = JSON.parse(localStorage.getItem('amantle_users') || '[]');
+      const allUserPosts: any[] = [];
+      users.forEach((user: any) => {
+        if (user.posts && user.posts.length) {
+          user.posts.forEach((post: any) => {
+            allUserPosts.push({
+              ...post,
+              author: user.name,
+              avatar: user.avatar || `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(user.name)}&backgroundColor=515f74&textColor=ffffff`,
+            });
+          });
+        }
+      });
+      return allUserPosts;
+    }
+
+    function createPostCard(post: any) {
+      return `
+        <div class="bloom-card-wrapper">
+          <article class="post-card" data-post-id="${post.id}">
+            ${post.image ? `<img class="post-card-image" src="${post.image}" alt="${post.title}" loading="lazy" />` : `
+              <div class="post-card-image" style="display:flex;align-items:center;justify-content:center;">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#a8b3bb" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+              </div>
+            `}
+            <div class="post-card-body">
+              <span class="post-card-category">${post.category || 'Заметка'}</span>
+              <h3 class="post-card-title">${post.title}</h3>
+              <p class="post-card-excerpt">${post.excerpt || post.content?.substring(0, 120) || ''}</p>
+              <div class="post-card-footer">
+                <div class="post-card-author">
+                  <img class="author-avatar" src="${post.avatar}" alt="${post.author}" />
+                  <div>
+                    <div class="author-name">${post.author}</div>
+                    <div class="post-card-date">${post.date || new Date(post.createdAt).toLocaleDateString('ru-RU', { day: 'numeric', month: 'short', year: 'numeric' })}</div>
+                  </div>
+                </div>
+                <div class="post-card-actions">
+                  <button class="post-action-btn like-btn" data-id="${post.id}">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                    <span>${post.likes ?? Math.floor(Math.random() * 50 + 5)}</span>
+                  </button>
+                  <button class="post-action-btn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                    <span>${post.comments ?? Math.floor(Math.random() * 20 + 1)}</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      `;
+    }
+
+    function renderPosts(filterText = '') {
+      if (!grid) return;
+
+      const userPosts = getUserPosts();
+      let allPosts = [...userPosts, ...samplePosts];
+
+      if (filterText) {
+        const lower = filterText.toLowerCase();
+        allPosts = allPosts.filter(
+          (p) =>
+            p.title.toLowerCase().includes(lower) ||
+            (p.excerpt || '').toLowerCase().includes(lower) ||
+            (p.category || '').toLowerCase().includes(lower) ||
+            p.author.toLowerCase().includes(lower)
+        );
+      }
+
+      if (allPosts.length === 0) {
+        grid.innerHTML = '';
+        emptyState?.classList.remove('hidden');
+      } else {
+        emptyState?.classList.add('hidden');
+        grid.innerHTML = allPosts.map(createPostCard).join('');
+      }
+    }
+
+    // Initial render
+    renderPosts();
+
+    // Search
+    searchInput?.addEventListener('input', (e) => {
+      const value = (e.target as HTMLInputElement).value;
+      renderPosts(value);
+    });
+
+    // New post button
+    newPostBtn?.addEventListener('click', () => {
+      const currentUser = localStorage.getItem('amantle_current_user');
+      if (!currentUser) {
+        window.location.href = '/auth';
+      } else {
+        window.location.href = '/editor';
+      }
+    });
+
+    // Like functionality
+    grid?.addEventListener('click', (e) => {
+      const likeBtn = (e.target as HTMLElement).closest('.like-btn');
+      if (likeBtn) {
+        e.stopPropagation();
+        const countSpan = likeBtn.querySelector('span');
+        if (countSpan) {
+          const current = parseInt(countSpan.textContent || '0');
+          const isLiked = likeBtn.classList.contains('liked');
+          countSpan.textContent = String(isLiked ? current - 1 : current + 1);
+          likeBtn.classList.toggle('liked');
+          if (!isLiked) {
+            likeBtn.querySelector('svg')?.setAttribute('fill', '#515f74');
+            likeBtn.querySelector('svg')?.setAttribute('stroke', '#515f74');
+          } else {
+            likeBtn.querySelector('svg')?.setAttribute('fill', 'none');
+            likeBtn.querySelector('svg')?.setAttribute('stroke', 'currentColor');
+          }
+        }
+      }
+    });
+  });
+</script>
