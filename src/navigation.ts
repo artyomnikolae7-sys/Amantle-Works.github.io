@@ -28,6 +28,10 @@ export const headerData = {
       href: getPermalink('/about'),
     },
     {
+      text: 'Тарифы',
+      href: getPermalink('/pricing'),
+    },
+    {
       text: 'Контакты',
       href: getPermalink('/contact'),
     },
@@ -42,6 +46,7 @@ export const footerData = {
       links: [
         { text: 'Главная', href: getPermalink('/') },
         { text: 'Лента', href: getPermalink('/feed') },
+        { text: 'Тарифы', href: getPermalink('/pricing') },
         { text: 'Блог', href: getBlogPermalink() },
       ],
     },

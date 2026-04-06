@@ -16,94 +16,101 @@ const metadata = {
   <!-- HeroText Widget ******************* -->
 
   <HeroText
-    tagline="Pricing"
-    title="Stellar Pricing for Every Journey"
-    subtitle="Choose the perfect plan that aligns with your cosmic goals."
+    tagline="Тарифы"
+    title="Звёздные цены для каждого пути"
+    subtitle="Выберите идеальный план, который соответствует вашим космическим целям."
   />
 
   <!-- Pricing Widget ******************* -->
 
   <Prices
-    title="Our prices"
-    subtitle="Only pay for what you need"
+    title="Наши тарифы"
+    subtitle="Выберите подходящий план для ваших целей"
     prices={[
       {
-        title: 'basic',
-        subtitle: 'Optimal choice for personal use',
-        price: 29,
-        period: 'per month',
+        title: 'Бесплатно',
+        subtitle: 'Идеально для хобби и индивидуального использования.',
+        price: 0,
+        period: 'в месяц',
         items: [
           {
-            description: 'Etiam in libero, et volutpat',
+            description: 'Домен NewMode',
           },
           {
-            description: 'Aenean ac nunc dolor tristique',
+            description: 'Значок NewMode',
           },
           {
-            description: 'Cras scelerisque accumsan lib',
+            description: '10 Участников',
           },
           {
-            description: 'In hac habitasse',
+            description: '5 Пространств',
           },
         ],
         callToAction: {
-          target: '_blank',
-          text: 'Get started',
+          text: 'Начать бесплатно',
           href: '#',
         },
       },
       {
-        title: 'standard',
-        subtitle: 'Optimal choice for small teams',
-        price: 69,
-        period: 'Per Month',
+        title: 'Про',
+        subtitle: 'Для создателей и стартапов, масштабирующих продукты.',
+        price: 49,
+        period: 'в месяц',
         items: [
           {
-            description: 'Proin vel laoreet',
+            description: 'Безлимитные участники',
           },
           {
-            description: 'Ut efficitur habitasse egestas',
+            description: 'Собственный домен',
           },
           {
-            description: 'Volutpat hac curabitur',
+            description: '20 Пространств',
           },
           {
-            description: 'Pellentesque blandit ut nibh',
+            description: '25 ГБ хранилища',
           },
           {
-            description: 'Donec fringilla sem',
+            description: '5 Соавторов',
+          },
+          {
+            description: '2 Локализации',
           },
         ],
         callToAction: {
-          target: '_blank',
-          text: 'Get started',
+          text: 'Начать за $49',
           href: '#',
+          variant: 'primary',
         },
         hasRibbon: true,
-        ribbonTitle: 'popular',
+        ribbonTitle: 'Популярный',
       },
       {
-        title: 'premium',
-        subtitle: 'Optimal choice for companies',
-        price: 199,
-        period: 'Per Month',
+        title: 'Бизнес',
+        subtitle: 'Для команд, которым нужно больше возможностей.',
+        price: 99,
+        period: 'в месяц',
         items: [
           {
-            description: 'Curabitur suscipit risus',
+            description: 'Безлимитные участники',
           },
           {
-            description: 'Aliquam habitasse malesuada',
+            description: 'Собственный домен',
           },
           {
-            description: 'Suspendisse sit amet blandit',
+            description: '30 Пространств',
           },
           {
-            description: 'Suspendisse auctor blandit dui',
+            description: '10 Соавторов',
+          },
+          {
+            description: '3 Локализации',
+          },
+          {
+            description: 'SEO оптимизация',
           },
         ],
         callToAction: {
-          target: '_blank',
-          text: 'Get started',
+          text: 'Начать за $99',
           href: '#',
         },
       },
@@ -113,38 +120,38 @@ const metadata = {
   <!-- Features3 Widget ************** -->
 
   <Features3
-    title="Price-related features"
-    subtitle="Discover the advantages of choosing our plans"
+    title="Возможности тарифов"
+    subtitle="Узнайте преимущества выбора наших планов"
     columns={2}
     items={[
       {
-        title: 'Tiered Pricing Plans',
-        description: 'Choose from a range of pricing plans designed to accommodate different budgets and requirements.',
+        title: 'Многоуровневые тарифные планы',
+        description: 'Выбирайте из ряда тарифных планов, разработанных для разных бюджетов и требований.',
         icon: 'tabler:stairs',
       },
       {
-        title: 'Transparent Pricing',
-        description: 'Clearly displayed pricing details for each plan, with no hidden costs or unexpected charges.',
+        title: 'Прозрачное ценообразование',
+        description: 'Четкое отображение деталей цен для каждого плана, без скрытых затрат и неожиданных платежей.',
         icon: 'tabler:flip-vertical',
       },
       {
-        title: 'Secure Payment Methods',
-        description: 'Secure payment gateways to protect your financial information during transactions.',
+        title: 'Безопасные способы оплаты',
+        description: 'Безопасные платежные шлюзы для защиты вашей финансовой информации во время транзакций.',
         icon: 'tabler:shield-lock',
       },
       {
-        title: 'Instant Access',
-        description: `Immediate access to your chosen plan's features and templates upon subscription.`,
+        title: 'Мгновенный доступ',
+        description: `Немедленный доступ к функциям выбранного вами плана после подписки.`,
         icon: 'tabler:accessible',
       },
       {
-        title: 'Upgrade Value',
-        description: 'Upgrade to higher-tier plans to unlock more features and benefits for an enhanced experience.',
+        title: 'Ценность обновления',
+        description: 'Переходите на тарифные планы более высокого уровня, чтобы разблокировать больше функций и преимуществ.',
         icon: 'tabler:chevrons-up',
       },
       {
-        title: '24H support',
-        description: 'Questions answered via live chat, email or phone, every calendar day.',
+        title: 'Поддержка 24/7',
+        description: 'Ответы на вопросы через чат, электронную почту или телефон ежедневно.',
         icon: 'tabler:headset',
       },
     ]}
@@ -154,36 +161,36 @@ const metadata = {
   <!-- Steps Widget ****************** -->
 
   <Steps
-    title="A guided journey from plans to creativity"
-    tagline="simplified process"
+    title="Путь от выбора плана до творчества"
+    tagline="упрощенный процесс"
     isReversed={true}
     items={[
       {
-        title: 'Explore plans',
+        title: 'Изучите планы',
         icon: 'tabler:number-1',
       },
       {
-        title: 'Select a plan',
+        title: 'Выберите подходящий план',
         icon: 'tabler:number-2',
       },
       {
-        title: 'Sign Up / Log In',
+        title: 'Зарегистрируйтесь / Войдите',
         icon: 'tabler:number-3',
       },
       {
-        title: 'Review order',
+        title: 'Проверьте заказ',
         icon: 'tabler:number-4',
       },
       {
-        title: 'Enter payment details',
+        title: 'Введите платежные данные',
         icon: 'tabler:number-5',
       },
       {
-        title: 'Confirmation',
+        title: 'Подтверждение',
         icon: 'tabler:number-6',
       },
       {
-        title: 'Download and start using the template(s)',
+        title: 'Начните использовать',
         icon: 'tabler:number-7',
       },
     ]}
@@ -196,34 +203,34 @@ const metadata = {
   <!-- FAQs Widget ******************* -->
 
   <FAQs
-    title="Pricing FAQs"
-    subtitle="Choosing the right plan is important, and we're here to answer your questions. If you have queries about our pricing options, you're in the right place."
+    title="Часто задаваемые вопросы по ценам"
+    subtitle="Выбор правильного плана важен, и мы готовы ответить на ваши вопросы."
     columns={1}
     items={[
       {
-        title: 'Do the plans come with customer support?',
+        title: 'Включают ли планы поддержку клиентов?',
         description:
-          'Absolutely, all plans include access to our dedicated customer support to assist you with any queries or concerns.',
+          'Конечно, все планы включают доступ к нашей специальной службе поддержки клиентов.',
       },
       {
-        title: 'Is there a trial period for the different plans?',
+        title: 'Есть ли пробный период для различных планов?',
         description:
-          "Unfortunately, we don't offer trial periods for the plans. However, you can check out our demo section to preview the quality of our templates.",
+          "К сожалению, мы не предлагаем пробные периоды. Однако вы можете ознакомиться с нашей демо-версией.",
       },
       {
-        title: 'Can I switch between plans?',
+        title: 'Могу ли я переключаться между планами?',
         description:
-          'Certainly! You can easily upgrade or downgrade your plan, at any time, to find the one that best suits your evolving requirements.',
+          'Разумеется! Вы можете легко повысить или понизить свой план в любое время.',
       },
       {
-        title: 'What payment methods do you accept?',
+        title: 'Какие способы оплаты вы принимаете?',
         description:
-          'We accept major credit cards and online payment methods to ensure a convenient and secure transaction process.',
+          'Мы принимаем основные кредитные карты и онлайн-способы оплаты для обеспечения удобства транзакций.',
       },
       {
-        title: 'Are there any hidden fees beyond the displayed cost?',
+        title: 'Есть ли скрытые платежи?',
         description:
-          'No, the subscription cost covers all the features and templates listed under each plan. There are no hidden fees or extra charges.',
+          'Нет, стоимость подписки покрывает все функции, перечисленные в каждом плане. Никаких скрытых комиссий.',
       },
     ]}
   />
@@ -231,12 +238,12 @@ const metadata = {
   <!-- CallToAction Widget *********** -->
 
   <CallToAction
-    title="Ready to boost your projects?"
-    subtitle="Join our community of satisfied customers who have transformed their work with our templates."
+    title="Готовы ускорить свои проекты?"
+    subtitle="Присоединяйтесь к нашему сообществу довольных клиентов."
     actions={[
       {
         variant: 'primary',
-        text: 'Get started now',
+        text: 'Начать сейчас',
         href: '/',
       },
     ]}

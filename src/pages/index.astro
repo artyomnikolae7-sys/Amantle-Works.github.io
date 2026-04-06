@@ -9,6 +9,7 @@ import Content from '~/components/widgets/Content.astro';
 import BlogLatestPosts from '~/components/widgets/BlogLatestPosts.astro';
 import CallToAction from '~/components/widgets/CallToAction.astro';
 import Stats from '~/components/widgets/Stats.astro';
+import Prices from '~/components/widgets/Pricing.astro';
 
 const metadata = {
   title: 'Amantle — Ваше пространство для идей и заметок',
@@ -194,6 +195,59 @@ const metadata = {
   <BlogLatestPosts
     title="Последние публикации"
     information="Самые свежие статьи и записи из блога Amantle."
+  />
+
+  <!-- Pricing Widget -->
+  <Prices
+    title="Наши тарифы"
+    subtitle="Выберите подходящий план для ваших целей"
+    prices={[
+      {
+        title: 'Бесплатно',
+        subtitle: 'Идеально для хобби и индивидуального использования.',
+        price: 0,
+        period: 'в месяц',
+        items: [
+          { description: 'Домен NewMode' },
+          { description: 'Значок NewMode' },
+          { description: '10 Участников' },
+          { description: '5 Пространств' },
+        ],
+        callToAction: { text: 'Начать бесплатно', href: '#' },
+      },
+      {
+        title: 'Про',
+        subtitle: 'Для создателей и стартапов, масштабирующих продукты.',
+        price: 49,
+        period: 'в месяц',
+        items: [
+          { description: 'Безлимитные участники' },
+          { description: 'Собственный домен' },
+          { description: '20 Пространств' },
+          { description: '25 ГБ хранилища' },
+          { description: '5 Соавторов' },
+          { description: '2 Локализации' },
+        ],
+        callToAction: { text: 'Начать за $49', href: '#' },
+        hasRibbon: true,
+        ribbonTitle: 'Популярный',
+      },
+      {
+        title: 'Бизнес',
+        subtitle: 'Для команд, которым нужно больше возможностей.',
+        price: 99,
+        period: 'в месяц',
+        items: [
+          { description: 'Безлимитные участники' },
+          { description: 'Собственный домен' },
+          { description: '30 Пространств' },
+          { description: '10 Соавторов' },
+          { description: '3 Локализации' },
+          { description: 'SEO оптимизация' },
+        ],
+        callToAction: { text: 'Начать за $99', href: '#' },
+      },
+    ]}
   />
 
   <!-- Stats Widget -->
