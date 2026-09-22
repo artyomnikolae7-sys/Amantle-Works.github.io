@@ -1,0 +1,335 @@
+/* ===== ElevenLabs Typography — Inter (300/400/500) & Geist/IBM Plex Mono ===== */
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+@import "tailwindcss";
+
+@plugin "@tailwindcss/typography";
+@import "tw-animate-css";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ===== ElevenLabs Design Tokens — Light (Default) ===== */
+:root {
+  /* Surfaces */
+  --surface-eggshell-canvas: #fdfcfc;
+  --surface-warm-taupe:      #f5f3f1;
+  --surface-stone-plate:     #ebe8e4;
+
+  /* Colors */
+  --color-eggshell:      #fdfcfc;
+  --color-warm-taupe:    #f5f3f1;
+  --color-stone:         #ebe8e4;
+  --color-ink:           #000000;
+  --color-graphite:      #44403b;
+  --color-smoke:         #777169;
+  --color-ash:           #a59f97;
+  --color-violet-spark:  #0447ff;
+  --color-ember-orange:  #ff4704;
+
+  /* Semantic Mappings for UI (Light Theme) */
+  --background:         #fdfcfc;
+  --foreground:         #000000;
+  --card:               #f5f3f1;
+  --card-foreground:    #000000;
+  --popover:            #fdfcfc;
+  --popover-foreground: #000000;
+  --primary:            #000000;
+  --primary-foreground: #ffffff;
+  --secondary:          #f5f3f1;
+  --secondary-foreground: #44403b;
+  --muted:              #f5f3f1;
+  --muted-foreground:   #777169;
+  --accent:             #ff4704;
+  --accent-foreground:  #ffffff;
+  --destructive:        #dc2626;
+  --border:             #ebe8e4;
+  --input:              #ebe8e4;
+  --ring:               rgba(0, 0, 0, 0.15);
+
+  /* Typography */
+  --font-display: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-sans:    'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono:    'IBM Plex Mono', ui-monospace, monospace;
+
+  /* Border Radii */
+  --radius: 20px;
+  --radius-cards: 20px;
+  --radius-large-cards: 24px;
+  --radius-buttons: 9999px;
+  --radius-inputs: 4px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-whisper: 0px 0px 1px rgba(0,0,0,0.4), 0px 1px 1px rgba(0,0,0,0.04), 0px 2px 4px rgba(0,0,0,0.04);
+}
+
+/* ===== ElevenLabs Dark Mode (Studio Notebook Edition) ===== */
+body.theme-dark, html.dark {
+  --surface-eggshell-canvas: #0f0e0d;
+  --surface-warm-taupe:      #171615;
+  --surface-stone-plate:     #282624;
+
+  --color-eggshell:      #0f0e0d;
+  --color-warm-taupe:    #171615;
+  --color-stone:         #282624;
+  --color-ink:           #fdfcfc;
+  --color-graphite:      #d4d0ca;
+  --color-smoke:         #a59f97;
+  --color-ash:           #777169;
+
+  --background:         #0f0e0d;
+  --foreground:         #fdfcfc;
+  --card:               #171615;
+  --card-foreground:    #fdfcfc;
+  --popover:            #171615;
+  --popover-foreground: #fdfcfc;
+  --primary:            #fdfcfc;
+  --primary-foreground: #000000;
+  --secondary:          #1f1e1c;
+  --secondary-foreground: #d4d0ca;
+  --muted:              #1f1e1c;
+  --muted-foreground:   #a59f97;
+  --border:             #282624;
+  --input:              #282624;
+  --ring:               rgba(255, 255, 255, 0.2);
+
+  --shadow-whisper: 0px 0px 1px rgba(255,255,255,0.1), 0px 2px 8px rgba(0,0,0,0.5);
+}
+
+body.theme-light, html.light {
+  --surface-eggshell-canvas: #fdfcfc;
+  --surface-warm-taupe:      #f5f3f1;
+  --surface-stone-plate:     #ebe8e4;
+
+  --color-eggshell:      #fdfcfc;
+  --color-warm-taupe:    #f5f3f1;
+  --color-stone:         #ebe8e4;
+  --color-ink:           #000000;
+  --color-graphite:      #44403b;
+  --color-smoke:         #777169;
+  --color-ash:           #a59f97;
+
+  --background:         #fdfcfc;
+  --foreground:         #000000;
+  --card:               #f5f3f1;
+  --card-foreground:    #000000;
+  --popover:            #fdfcfc;
+  --popover-foreground: #000000;
+  --primary:            #000000;
+  --primary-foreground: #ffffff;
+  --secondary:          #f5f3f1;
+  --secondary-foreground: #44403b;
+  --muted:              #f5f3f1;
+  --muted-foreground:   #777169;
+  --border:             #ebe8e4;
+  --input:              #ebe8e4;
+  --ring:               rgba(0, 0, 0, 0.15);
+
+  --shadow-whisper: 0px 0px 1px rgba(0,0,0,0.4), 0px 1px 1px rgba(0,0,0,0.04), 0px 2px 4px rgba(0,0,0,0.04);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --font-sans: var(--font-sans);
+  --font-display: var(--font-display);
+  --font-mono: var(--font-mono);
+
+  --animate-fade-in: fade-in 0.6s ease-out forwards;
+  --animate-marquee: marquee 35s linear infinite;
+  --animate-shimmer: shimmer 5s ease-in-out infinite;
+
+  @keyframes fade-in {
+    0% { opacity: 0; transform: translateY(16px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes marquee {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-100%); }
+  }
+
+  @keyframes shimmer {
+    0% { background-position: 100% center; }
+    50% { background-position: 0% center; }
+    100% { background-position: 100% center; }
+  }
+}
+
+/* ===== Base Layer ===== */
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-sans);
+    letter-spacing: 0.01em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.25s ease, color 0.25s ease;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    font-weight: 300;
+    letter-spacing: -0.02em;
+  }
+}
+
+/* ===== ElevenLabs Signature Components ===== */
+
+/* 1. Filled Pill Button (Primary) */
+.btn-pill-filled {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 22px;
+  border-radius: 9999px;
+  background: var(--primary);
+  color: var(--primary-foreground);
+  font-size: 14px;
+  font-weight: 500;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.btn-pill-filled:hover {
+  opacity: 0.88;
+  transform: translateY(-1px);
+}
+.btn-pill-filled:active {
+  transform: scale(0.98);
+}
+
+/* 2. Outline Pill Button (Secondary) */
+.btn-pill-outlined {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 9999px;
+  background: var(--background);
+  color: var(--foreground);
+  font-size: 14px;
+  font-weight: 500;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.btn-pill-outlined:hover {
+  background: var(--secondary);
+}
+
+/* 3. Ghost Button / Nav Link */
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  background: transparent;
+  color: var(--muted-foreground);
+  font-size: 13px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.btn-ghost:hover {
+  color: var(--foreground);
+  background: var(--secondary);
+}
+
+/* 4. Feature Card (Taupe Surface with 20px radius) */
+.themed-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  transition: all 0.2s ease;
+}
+.themed-card:hover {
+  border-color: rgba(0, 0, 0, 0.2);
+}
+body.theme-dark .themed-card:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* 5. Elevated White Card with Whisper Shadow */
+.card-whisper {
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  box-shadow: var(--shadow-whisper);
+}
+
+/* 6. Hairline Section Divider */
+.hairline-divider {
+  height: 1px;
+  background: var(--border);
+  width: 100%;
+}
+.rule-divider {
+  height: 1px;
+  background: var(--border);
+  width: 100%;
+}
+
+/* 7. Product Audio Sphere / Visual Glow Element */
+.audio-sphere {
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #0447ff 0%, #ff4704 60%, rgba(255, 71, 4, 0.1) 100%);
+  filter: blur(12px);
+  opacity: 0.85;
+}
+
+/* 8. Top Nav Glass Header */
+.header-glass {
+  background: rgba(253, 252, 252, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+}
+body.theme-dark .header-glass {
+  background: rgba(15, 14, 13, 0.88);
+}
+
+.footer-bg {
+  background: var(--card);
+}
+
+/* Whisper-weight Display Headlines (Waldenburg 300 style) */
+.headline-whisper {
+  font-family: var(--font-display);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  line-height: 1.12;
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
